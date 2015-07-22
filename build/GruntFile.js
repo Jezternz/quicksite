@@ -1,16 +1,40 @@
-require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks
+module.exports = function(grunt) 
+{
 
-grunt.initConfig({
-    babel: {
-        options: {
-            sourceMap: true
-        },
-        dist: {
-            files: {
-                '../out/script.js': '../src/script.js'
-            }
-        }
-    }
-});
+	// Project configuration.
+	grunt.initConfig({
+		babel:
+		{
+			options:
+			{
+				sourceMap: true
+			},
+			dist:
+			{
+				files:
+				{
+					'../out/script.js': '../src/script.js'
+				}
+			}
+		},
+		copy: 
+		{
+			main:
+			{
+				files: 
+				[
+					{ cwd: "../src/", src: ['**/*.html'], dest: '../out/', expand: true },
+				]
+			}
+		}
+	});
 
-grunt.registerTask('default', ['babel']);
+	grunt.loadNpmTasks('grunt-babel');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+
+	grunt.registerTask('default', [
+		'babel', 
+		'copy:main'
+	]);
+
+};
