@@ -3,17 +3,20 @@ module.exports = function(grunt)
 
 	// Project configuration.
 	grunt.initConfig({
-		babel:
+		browserify: 
 		{
-			options:
+			dist: 
 			{
-				sourceMap: true
-			},
-			dist:
-			{
-				files:
+				options: 
 				{
-					'../out/script.js': '../src/script.js'
+					browserifyOptions: {
+						debug: true
+					},
+					transform: [["babelify", { "stage": 0 }]]
+				},
+				files: 
+				{
+					"../out/script.js": "../src/script.js"
 				}
 			}
 		},
@@ -23,18 +26,35 @@ module.exports = function(grunt)
 			{
 				files: 
 				[
-					{ cwd: "../src/", src: ['**/*.html'], dest: '../out/', expand: true },
+					{ cwd: "../src/", src: ['**/*.*', '!**/*.js', '!script/'], dest: '../out/', expand: true },
 				]
 			}
-		}
+		},
+		watch: 
+		{
+			main: 
+			{
+				files: '../src/**/*.*',
+				tasks: ['default'],
+				options: 
+				{
+					debounceDelay: 50,
+				},
+			},
+		},
 	});
 
-	grunt.loadNpmTasks('grunt-babel');
+	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', [
-		'babel', 
+		'browserify', 
 		'copy:main'
+	]);
+	grunt.registerTask('watch-dev', [
+		'default', 
+		'watch:main'
 	]);
 
 };

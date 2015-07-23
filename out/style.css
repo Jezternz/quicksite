@@ -1,0 +1,43 @@
+@font-face {font-family: 'IcoMoon-Free';src: url('icomoon.ttf') format('truetype');font-weight: normal;font-style: normal;}
+.qs-icon {font-family: 'IcoMoon-Free';speak: none;font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;-webkit-font-feature-settings: "liga";-moz-font-feature-settings: "liga=1";-moz-font-feature-settings: "liga";-ms-font-feature-settings: "liga" 1;-o-font-feature-settings: "liga";font-feature-settings: "liga";-webkit-font-smoothing: antialiased;	-moz-osx-font-smoothing: grayscale;}
+
+.qs-icon-pencil:before { content: "\e905";}
+.qs-icon-letter:before { content: "\ea6d";}
+.qs-icon-expand:before { content: "\e98b";}
+.qs-icon-cursor:before { content: "\e949";}
+.qs-icon-paint:before { content: "\e90c";}
+.qs-icon-empty:before { content: "\ea53";}
+.qs-icon-cog:before { content: "\e994";}
+.qs-icon-plus:before { content: "\ea0a";}
+.qs-icon-minus:before { content: "\ea0b";}
+.qs-icon-file:before { content: "\e924";}
+.qs-icon-clipboard:before { content: "\e92d";}
+.qs-icon-pictures:before { content: "\e90e";}
+.qs-icon-help:before { content: "\ea09";}
+
+.qs-engine-dd-container{position:absolute;overflow:hidden;width:0;height:0;left:0;right:0;display:inline;box-sizing:border-box;outline: none;}
+.qs-engine-dd-container:focus{overflow:visible;}
+
+.qs-engine-dd-inner{background:#fff;display:inline-block;border:1px solid #ccc;border-radius:2px;font-family:arial;font-size:10px;font-weight:bold;}
+
+.qs-engine-dd-title{display:inline-block;box-sizing:border-box;background:#444;color:#fff;width:160px;height:23px;line-height:23px;text-align:vertical;padding-left:4px;}
+.qs-engine-dd-title-icon{float:right;line-height: 22px;padding-right: 5px;}
+
+.qs-engine-dd-group{border-bottom:1px solid #ccc;}
+.qs-engine-dd-group:last-child{border-bottom:none;}
+
+.qs-engine-dd-item{position:relative;display:block;box-sizing:border-box;color: #707070;width:160px;height:19px;line-height:19px;vertical-align: middle;padding-left:4px;cursor:default;}
+.qs-engine-dd-item .qs-engine-dd-icon{display:inline-block;padding-right: 8px;padding-left: 2px;width: 10px;height: 10px;}
+.qs-engine-dd-item:hover{background:#eee;}
+
+.qs-engine-dd-more{position:absolute;width:20px;height:18px;border:1px solid #ccc;background:#fff;line-height:18px;top:-1px;right:-1px;background:#fff;}
+.qs-engine-dd-more:hover{background:#ccc;}
+.qs-engine-dd-item:last-child > .qs-engine-dd-more{height:19px;}
+
+.qs-engine-dd-expand{text-align:center;}
+
+.qs-engine-dd-group .qs-engine-dd-group{top:-1px;left:100%;position:absolute;display:none;border:1px solid #ccc;}
+
+.qs-engine-dd-more:hover > .qs-engine-dd-group{display:block;}
+
+
