@@ -1,9 +1,11 @@
 class EventHandler
 {
+	IS_EVENT_HANDLER = true;
+	listeners = {};
+
 	constructor()
 	{
-		this.listeners = {};
-		this._IS_EVENT_HANDLER = true;
+		
 	}
 
 	on(eventType, eventCallback)

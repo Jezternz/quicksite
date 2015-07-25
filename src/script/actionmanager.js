@@ -1,28 +1,26 @@
+import Events from "./globalevents.js";
 import AddEvent from "./events/addevent.js";
+import PrimaryDOM from "./primarydom.js";
 
 class ActionManager
 {
 
-	_events = null;
-	_dom = null;
-
-	_eventMethodTranslation = {
+	eventMethodTranslation = 
+	{
 		"menu.dom.add": AddEvent
 	}
 
-	constructor(opts = {})
+	constructor()
 	{
-		this._events = opts.events;
-		this._dom = opts.dom;
-		this._events.on('menuselect', this.handleSelectEvent.bind(this));
+		Events.on('menuselect', ::this.handleSelectEvent);
 	}
 
 	handleSelectEvent(evt)
 	{
-		if(typeof this._eventMethodTranslation[evt.buttonid] !== "undefined")
+		if(typeof this.eventMethodTranslation[evt.buttonid] !== "undefined")
 		{
-			var domEvent = new this._eventMethodTranslation[evt.buttonid](evt, dom);
-			this._events.trigger('domevent', domEvent);
+			var domEvent = new this.eventMethodTranslation[evt.buttonid](evt, PrimaryDOM);
+			Events.trigger('domevent', domEvent);
 		}
 	}
 }

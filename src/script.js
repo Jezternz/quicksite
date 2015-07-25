@@ -1,33 +1,30 @@
-import { MenuDefinitions, Logging } from "./script/constants.js";
-import EventHandler from "./script/eventhandler.js";
-import MenuBuilder from "./script/menubuilder.js";
+import MenuBuilder from "./script/lib/menubuilder.js";
 import DialogManager from "./script/dialogmanager.js";
 import ActionManager from "./script/actionmanager.js";
+import GlobalEvents from "./script/globalevents.js";
 import EventQueue from "./script/eventqueue.js";
-import VirtualDOM from "./script/virtualdom.js";
-import DrawingBoard from "./script/drawingboard.js";
+import PrimaryDOM from "./script/primarydom.js";
+import { MenuDefinitions } from "./script/constants.js";
 
-window.onload = function()
+class Main
 {
-	var app = {};
+	globalEvents = null;
+	DOM = null;
+	menuBuilder = null;
+	eventQueue = null;
+	dialogManager = null;
+	actionManager = null;
 
-	app.globalEventChannel = new EventHandler();
-
-	app.menuBuilder = new MenuBuilder(MenuDefinitions, { "container":"body", "events": app.globalEventChannel });
-	app.eventQueue = new EventQueue({ "events": app.globalEventChannel });
-
-	app.virtualDOM = new VirtualDOM({ "events": app.globalEventChannel });
-
-	app.drawingBoard = new DrawingBoard({ "events": app.globalEventChannel });
-
-	app.dialogManager = new DialogManager({ "container":"body", "events": app.globalEventChannel });
-	app.actionManager = new ActionManager({ "events": app.globalEventChannel, "dom": app.virtualDOM });
-
-	if(Logging.Verbose)
+	constructor()
 	{
-		app.globalEventChannel.on('*', function(evt, eventName)
-		{
-			console.log(eventName, evt)
-		});
+		this.globalEvents = GlobalEvents;
+		this.DOM = PrimaryDOM;
+		this.DOM.setup({ "rootElement": document.getElementById('qs-drawing-board') });
+		this.menuBuilder = new MenuBuilder({ "definitions":MenuDefinitions, "container":"body", "events":this.globalEvents });
+		this.eventQueue = new EventQueue({});
+		this.dialogManager = new DialogManager({ "container":"body" });
+		this.actionManager = new ActionManager({ });
 	}
-};
+}
+
+window.addEventListener("DOMContentLoaded", () => window.app = new Main(), false);
