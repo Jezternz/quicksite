@@ -8,8 +8,17 @@ class AddEvent extends DomEvent
 
 	defaultCSS = 
 	{
+<<<<<<< HEAD
 		"width":"100px",
 		"height":"100px"
+=======
+		"width":"10%",
+		"height":"30%",
+		"background":"#EDEDFF",
+		"border": "1px solid gray",
+		"box-sizing": "border-box",
+		"display": "inline-block"
+>>>>>>> a382ef786cfb09721fa4f7e1ddd1f87fcbe03fd8
 	};
 
 	constructor(evtOpts, dom)

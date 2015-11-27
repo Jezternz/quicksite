@@ -19,6 +19,10 @@ class Main
 	{
 		this.globalEvents = GlobalEvents;
 		this.DOM = PrimaryDOM;
+<<<<<<< HEAD
+=======
+		this.DOM.setup({ "rootElement": document.getElementById('qs-drawing-board') });
+>>>>>>> a382ef786cfb09721fa4f7e1ddd1f87fcbe03fd8
 		this.menuBuilder = new MenuBuilder({ "definitions":MenuDefinitions, "container":"body", "events":this.globalEvents });
 		this.eventQueue = new EventQueue({});
 		this.dialogManager = new DialogManager({ "container":"body" });
@@ -26,4 +30,8 @@ class Main
 	}
 }
 
+<<<<<<< HEAD
 window.onload = function(){ window.app = new Main(); };
+=======
+window.addEventListener("DOMContentLoaded", () => window.app = new Main(), false);
+>>>>>>> a382ef786cfb09721fa4f7e1ddd1f87fcbe03fd8
