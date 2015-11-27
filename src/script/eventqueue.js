@@ -1,35 +1,47 @@
-import UndoEvent from './events/undoevent.js';
+import Events from "./globalevents.js";
 
 class EventQueue
 {
-	_eventQueue = []
+	eventQueue = [];
+	eventQueueOffset = 0;
 
-	constructor(opts)
+	constructor()
 	{
-		opts.events.on('domevent', this.addToQueue.bind(this));
+		Events.on('domevent', ::this.addToQueue);
 	}
 
 	addToQueue(evt)
 	{
-		this._eventQueue.push(evt);
+		if(this.eventQueueOffset !== 0)
+		{
+			// Need to first discard 'undo-ed' changes, and move offset back to 0
+			var removedEvts = this.eventQueue.splice(-this.eventQueueOffset, this.eventQueueOffset);
+			removedEvts.forEach(removeEvt => removeEvt.destoryEvent());
+			this.eventQueueOffset = 0;
+		}
+		this.eventQueue.push(evt);
 		evt.performEventAction();
 	}
 
 	undoFromQueue()
 	{
-		var evt = this._eventQueue.pop();
-		evt.revertEventAction();
-		var undoEvt = new UndoEvent({ "relatedEvent": evt });
-		this.addToQueue(undoEvt);
+		var offset = (this.eventQueue.length-1)-this.eventQueueOffset;
+		if(offset >= 0)
+		{
+			var evt = this.eventQueue[offset];
+			evt.revertEventAction();
+			this.eventQueueOffset++;
+		}
 	}
 
 	redoFromQueue()
 	{
-		if(this._eventQueue[this._eventQueue.length-1].IS_UNDO_EVENT)
+		if(this.eventQueueOffset !== 0)
 		{
-			var evt = this._eventQueue.pop();
-			evt.revertEventAction();
-			this.addToQueue(evt.relatedEvent);
+			this.eventQueueOffset--;
+			var offset = (this.eventQueue.length-1)-this.eventQueueOffset;
+			var evt = this.eventQueue[offset];
+			evt.performEventAction();
 		}
 	}
 

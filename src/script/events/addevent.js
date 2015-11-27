@@ -2,38 +2,46 @@ import DomEvent from "./domevent.js";
 
 class AddEvent extends DomEvent
 {
-	_dom = null;
-	_QSID = null;
-	_targetQSID = null;
+	dom = null;
+	qSID = null;
+	parent = null;
 
-	_defaultCSS = {
+	defaultCSS = 
+	{
 		"width":"100px",
 		"height":"100px"
 	};
 
-	constructor(opts, dom)
+	constructor(evtOpts, dom)
 	{
 		super();
 
-		this._QSID = 0;// :TODOOOOOO GENERATE GUID!
-		this._dom = dom;
-		this._targetQSID = this._dom.getElementQSID(opts.target);
+		this.dom = dom;
+		this.qSID = this.dom.generateGuid();
+		this.parent = evtOpts.target;
 	}
 
 	performEventAction()
 	{
-		this._dom.addElement({
-			"QSID": this._QSID,
-			"parentQSID": this._targetQSID,
+		this.dom.addElement({
+			"qSID": this.qSID,
+			"parent": this.parent,
 			"position": 0,
 			"tag": "div",
-			"css": this._defaultCSS
+			"css": this.defaultCSS
 		});
 	}
 
 	revertEventAction()
 	{
-		this._dom.removeElement(this._QSID);
+		this.dom.removeElement(this.qSID);
+	}
+
+	destroy()
+	{
+		this.dom = null;
+		this.qSID = null;
+		this.parent = null;
 	}
 }
 
